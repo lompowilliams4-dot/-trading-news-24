@@ -52,8 +52,8 @@ function Sparkline({ data, up }: { data: number[]; up: boolean }) {
     const y = height - ((v - min) / range) * (height - 4) - 2
     return `${x.toFixed(2)},${y.toFixed(2)}`
   })
-  const stroke = up ? "#059669" : "#e11d48"
-  const fill = up ? "rgba(5,150,105,0.12)" : "rgba(225,29,72,0.12)"
+  const stroke = up? "#059669" : "#e11d48"
+  const fill = up? "rgba(5,150,105,0.12)" : "rgba(225,29,72,0.12)"
   const areaPoints = `0,${height} ${points.join(" ")} ${width},${height}`
   return (
     <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" className="h-8 w-full" aria-hidden="true">
@@ -100,8 +100,8 @@ export function Currencies() {
           next[pair.key] = {
             price,
             changePct,
-            direction: changePct >= 0 ? "up" : "down",
-            flash: delta >= 0 ? "up" : "down",
+            direction: changePct >= 0? "up" : "down",
+            flash: delta >= 0? "up" : "down",
             history,
           }
         }
@@ -112,55 +112,55 @@ export function Currencies() {
   }, [])
 
   return (
-    <section aria-labelledby="fx-title" className="mx-auto max-w-6xl px-4 pb-16 pt-10">
+    <section aria-labelledby="fx-title" className="mx-auto max-w-6xl px-3 sm:px-4 pb-10 sm:pb-16 pt-6 sm:pt-10 overflow-hidden">
       <div className="flex items-center gap-2">
         <span aria-hidden="true">💱</span>
-        <h2 id="fx-title" className="text-xl font-bold tracking-tight sm:text-2xl">
+        <h2 id="fx-title" className="text-lg font-bold tracking-tight sm:text-2xl">
           DEVISES MAJEURES EN DIRECT
         </h2>
       </div>
-      <p className="mt-1 text-sm text-muted-foreground">
+      <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
         Cotations indicatives mises à jour en continu.
       </p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-5 sm:mt-6 grid grid-cols-1 gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {PAIRS.map((pair) => {
           const q = quotes[pair.key]
           const isUp = q.direction === "up"
-          const Trend = isUp ? ArrowUpRight : ArrowDownRight
+          const Trend = isUp? ArrowUpRight : ArrowDownRight
           return (
-            <div key={pair.key} className="flex flex-col rounded-2xl border bg-card p-5 transition-colors">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <div className="text-base font-bold tracking-tight">{pair.label}</div>
-                  <div className="text-xs text-muted-foreground">{pair.sub}</div>
+            <div key={pair.key} className="flex flex-col rounded-2xl border bg-card p-4 sm:p-5 transition-colors min-w-0 overflow-hidden">
+              <div className="flex items-start justify-between gap-2 min-w-0">
+                <div className="min-w-0">
+                  <div className="text-sm sm:text-base font-bold tracking-tight truncate">{pair.label}</div>
+                  <div className="text-[11px] sm:text-xs text-muted-foreground truncate">{pair.sub}</div>
                 </div>
                 <span
-                  className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${
+                  className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] sm:text-xs font-semibold ${
                     isUp
-                      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300"
+                     ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300"
                       : "bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300"
                   }`}
                 >
-                  <Trend className="size-3.5" aria-hidden="true" />
-                  {isUp ? "+" : ""}
+                  <Trend className="size-3 sm:size-3.5" aria-hidden="true" />
+                  {isUp? "+" : ""}
                   {q.changePct.toFixed(2)} %
                 </span>
               </div>
 
-              <div className="mt-4 flex items-baseline gap-2">
+              <div className="mt-3 sm:mt-4 flex items-baseline gap-2 flex-wrap">
                 <span
-                  className={`font-mono text-2xl font-semibold tabular-nums transition-colors duration-500 ${
+                  className={`font-mono text-xl sm:text-2xl font-semibold tabular-nums transition-colors duration-500 break-all ${
                     q.flash === "up"
-                      ? "text-emerald-600 dark:text-emerald-400"
+                     ? "text-emerald-600 dark:text-emerald-400"
                       : q.flash === "down"
-                        ? "text-rose-600 dark:text-rose-400"
+                       ? "text-rose-600 dark:text-rose-400"
                         : "text-foreground"
                   }`}
                 >
                   {formatPrice(q.price, pair.decimals)}
                 </span>
-                <span className="flex items-center gap-1 text-[11px] uppercase tracking-wide text-muted-foreground">
+                <span className="flex items-center gap-1 text-[10px] sm:text-[11px] uppercase tracking-wide text-muted-foreground">
                   <span className="size-1.5 animate-pulse rounded-full bg-red-500" aria-hidden="true" />
                   Live
                 </span>
